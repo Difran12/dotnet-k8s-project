@@ -38,21 +38,21 @@ jobs:
           push: true
           tags: ghcr.io/${{ env.IMAGE_NAME }}-api:latest
 
-  deploy:
-    needs: build-test-push
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Kubernetes Context
-        uses: azure/k8s-set-context@v3
-        with:
-          method: kubeconfig
-          kubeconfig: ${{ secrets.KUBE_CONFIG }}
-
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f k8s/deployment.yaml
-          kubectl apply -f k8s/service.yaml
-          kubectl rollout restart deployment/my-api-deployment
+#  deploy:
+#    needs: build-test-push
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout code
+#        uses: actions/checkout@v4
+#
+#      - name: Set up Kubernetes Context
+#        uses: azure/k8s-set-context@v3
+#        with:
+#          method: kubeconfig
+#          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+#
+#      - name: Deploy to Kubernetes
+#        run: |
+#          kubectl apply -f k8s/deployment.yaml
+#          kubectl apply -f k8s/service.yaml
+#          kubectl rollout restart deployment/my-api-deployment
